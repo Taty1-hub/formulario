@@ -51,6 +51,16 @@ function Kfp_Aspirante_init()
 // Define el shortcode y lo asocia a una función
 add_shortcode('kfp_aspirante_form', 'Kfp_Aspirante_form');
 
+//carga hoja javascript
+add_action("wp_enqueue_scripts", "dcms_insertar_js");
+
+
+function dcms_insertar_js(){
+    
+    wp_register_script('miscript', plugins_url('formulario.css', __FILE__), array('jquery'), '1', true );
+    wp_enqueue_script('miscript');
+    
+}
 
 
 /** 
@@ -64,6 +74,7 @@ function Kfp_Aspirante_form()
       
     // Carga esta hoja de estilo para poner más bonito el formulario
 wp_enqueue_style('css_aspirante', plugins_url('formulario.css', __FILE__));
+
 
 global $wpdb; // Este objeto global permite acceder a la base de datos de WP
     // Si viene del formulario  graba en la base de datos
@@ -149,15 +160,25 @@ class="cuestionario">
 al dedillo
         </div>
         <div class="form-input">
-            <label for="aceptacion">La información facilitada se tratará 
+            <label  for="aceptacion">La información facilitada se tratará 
             con respeto y admiración.</label>
             <input type="checkbox" id="aceptacion" name="aceptacion"
-value="1" required> Entiendo y acepto las condiciones
+value="1"  required disabled> <a id= "privacidad" href="" Entiendo y acepto las condiciones>
         </div>
         <div class="form-input">
             <input type="submit" value="Enviar">
         </div>
     </form>
+    <!--
+    
+    <script>
+
+        $('#privacidad').click(()=>{
+            e.prevenDefault;
+            alert("Aceptando condicones");
+    
+        })
+    </script>
     <?php
      
     // Devuelve el contenido del buffer de salida
